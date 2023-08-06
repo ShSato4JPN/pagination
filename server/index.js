@@ -21,7 +21,7 @@ app.get("/post/:page", async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(200).json({
     posts: data,
-    taotalCount: 100,
+    totalCount: 100,
   });
 });
 
