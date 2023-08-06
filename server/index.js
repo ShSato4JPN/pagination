@@ -7,7 +7,7 @@ const port = 3000;
 app.get("/post/:page", async (req, res) => {
   const page = req.params.page;
   const range = 10;
-  const start = page * range + 1;
+  const start = (page - 1) * range + 1;
 
   const PromiseList = [];
   for (let i = 0; i < range; i++) {
@@ -18,7 +18,11 @@ app.get("/post/:page", async (req, res) => {
 
   const data = (await Promise.all(PromiseList)).map((res) => res.data);
 
-  res.status(200).json(data);
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.status(200).json({
+    posts: data,
+    taotalCount: 100,
+  });
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

@@ -1,21 +1,10 @@
+import { Fetcher } from "swr";
 import axios, { AxiosResponse } from "axios";
-import { Posts, Post } from "../types";
+import { ApiResponse } from "../types";
 
-type FetcherProps = {
-  start: number;
+const fetcher: Fetcher<ApiResponse, string> = (url: string) => {
+  console.log(url);
+  return fetch(url).then((res) => res.json());
 };
-
-async function fetcher({ start }: FetcherProps) {
-  const range = 10;
-
-  const PromiseList = [];
-  for (let i = 0; i < range; i++) {
-    PromiseList.push(
-      axios.get<Post>(`https://jsonplaceholder.typicode.com/posts/${start + i}`)
-    );
-  }
-
-  return (await Promise.all(PromiseList)).map((res) => res.data) as Posts;
-}
 
 export default fetcher;

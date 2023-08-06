@@ -1,29 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import styles from "./style.module.css";
 import fetcher from "./libs/fetcher";
-import { Posts } from "./types";
+import Pagination from "./components/Pagination";
+import ListViewer from "./components/PageList";
+import useSWR from "swr";
 
 function App() {
-  const [posts, setPosts] = useState<Posts>([]);
+  const range = 10;
+  const { data } = useSWR(`http://localhost:3000/post/${page}`, fetcher);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    fetcher({ start: 1 }).then((data) => {
-      setPosts(data);
-    });
-  }, []);
-
-  const [count, setCount] = useState(0);
+  const maxPage = useMemo(() => {
+    if (!data) return 1;
+    return Math.ceil(data.totalCount / range);
+  }, [data]);
 
   return (
     <>
       <div>
-        {posts.map((post) => {
-          return (
-            <div key={post.id}>
-              <h1>{post.id}</h1>
-            </div>
-          );
-        })}
+        <ListViewer posts={data?.posts} />
+        <Pagination
+          currentPage={currentPage}
+          maxPage={maxPage}
+          setPage={setPage}
+        />
       </div>
     </>
   );

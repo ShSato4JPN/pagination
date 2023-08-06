@@ -5,4 +5,9 @@ export type Post = {
   completed: boolean;
 };
 
-export type Posts = Post[] | [];
+type Posts = Post[] | [];
+
+export type ApiResponse = {
+  totalCount: number;
+  posts: Posts;
+};
