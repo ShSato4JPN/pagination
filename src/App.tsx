@@ -13,6 +13,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState<number>(
     Number(queryParams.get("page"))
   );
+
   // データフェッチ
   const { data } = useSWR(`http://localhost:3000/post/${currentPage}`, fetcher);
 
@@ -21,31 +22,31 @@ function App() {
     return Math.ceil(data.totalCount / range);
   }, [data]);
 
-  const handlePrev = useCallback(() => {
-    let pageNo: number = currentPage;
-    if (0 < currentPage - 1) {
-      pageNo = currentPage - 1;
-    } else {
-      pageNo = 1;
-    }
-    setCurrentPage(() => pageNo);
-  }, [currentPage]);
+  // const handlePrev = useCallback(() => {
+  //   let pageNo: number = currentPage;
+  //   if (0 < currentPage - 1) {
+  //     pageNo = currentPage - 1;
+  //   } else {
+  //     pageNo = 1;
+  //   }
+  //   setCurrentPage(() => pageNo);
+  // }, [currentPage]);
 
-  const handleNext = useCallback(() => {
-    let pageNo: number = currentPage;
-    if (currentPage + 1 < maxPage) {
-      pageNo = currentPage + 1;
-    } else {
-      pageNo = maxPage;
-    }
-    setCurrentPage(() => pageNo);
-  }, [currentPage, maxPage]);
+  // const handleNext = useCallback(() => {
+  //   let pageNo: number = currentPage;
+  //   if (currentPage + 1 < maxPage) {
+  //     pageNo = currentPage + 1;
+  //   } else {
+  //     pageNo = maxPage;
+  //   }
+  //   setCurrentPage(() => pageNo);
+  // }, [currentPage, maxPage]);
 
   return (
     <>
       <div>
         <ListViewer posts={data?.posts} />
-        <Pagination handlePrev={handlePrev} handleNext={handleNext} />
+        <Pagination currentPage={currentPage} />
       </div>
     </>
   );

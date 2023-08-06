@@ -1,15 +1,23 @@
 import PageList from "../PageList";
+import { Link } from "react-router-dom";
 
 type PaginationProps = {
-  handlePrev: () => void;
-  handleNext: () => void;
+  // handlePrev: () => void;
+  // handleNext: () => void;
+  currentPage: number;
 };
 
-function Pagination({ handlePrev, handleNext }: PaginationProps) {
+function Pagination({ currentPage }: PaginationProps) {
   return (
     <>
-      <button onClick={handlePrev}>PREV</button>
-      <button onClick={handleNext}>NEXT</button>
+      {/* <button onClick={handlePrev}>PREV</button>
+      <button onClick={handleNext}>NEXT</button> */}
+      <Link to={`/?page=${currentPage - 1}`}>
+        <div>prev</div>
+      </Link>
+      <Link to={`/?page=${currentPage + 1}`}>
+        <div>next</div>
+      </Link>
     </>
   );
 }
