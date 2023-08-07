@@ -22,26 +22,6 @@ function App() {
     return Math.ceil(data.totalCount / range);
   }, [data]);
 
-  // const handlePrev = useCallback(() => {
-  //   let pageNo: number = currentPage;
-  //   if (0 < currentPage - 1) {
-  //     pageNo = currentPage - 1;
-  //   } else {
-  //     pageNo = 1;
-  //   }
-  //   setCurrentPage(() => pageNo);
-  // }, [currentPage]);
-
-  // const handleNext = useCallback(() => {
-  //   let pageNo: number = currentPage;
-  //   if (currentPage + 1 < maxPage) {
-  //     pageNo = currentPage + 1;
-  //   } else {
-  //     pageNo = maxPage;
-  //   }
-  //   setCurrentPage(() => pageNo);
-  // }, [currentPage, maxPage]);
-
   return (
     <>
       <div>
