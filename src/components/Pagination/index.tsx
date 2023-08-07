@@ -1,4 +1,3 @@
-import PageList from "../PageList";
 import { Link } from "react-router-dom";
 
 type PaginationProps = {

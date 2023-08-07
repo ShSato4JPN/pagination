@@ -7,20 +7,19 @@ import ListViewer from "./components/PageList";
 import useSWR from "swr";
 
 function App() {
-  const range = 10;
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const [currentPage, setCurrentPage] = useState<number>(
-    Number(queryParams.get("page"))
-  );
+  const { search } = useLocation();
+  const currentPage = useMemo(() => {
+    const queryParams = new URLSearchParams(search);
+    if (queryParams.has("page")) {
+      const page = Number(queryParams.get("page"));
+      return isNaN(page) ? 1 : page;
+    } else {
+      return 1;
+    }
+  }, [search]);
 
   // データフェッチ
   const { data } = useSWR(`http://localhost:3000/post/${currentPage}`, fetcher);
-
-  const maxPage = useMemo(() => {
-    if (!data) return 1;
-    return Math.ceil(data.totalCount / range);
-  }, [data]);
 
   return (
     <>
