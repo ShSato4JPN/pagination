@@ -16,7 +16,7 @@ type FilterParams = {
 
 function Pagination({ currentPage }: PaginationProps) {
   // 最大ページ数（仮）
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const totalCount: number = 10;
   const pageNumbers = useMemo<FilterParams>(() => {
@@ -56,21 +56,6 @@ function Pagination({ currentPage }: PaginationProps) {
 
   return (
     <>
-      {/* <ReactPaginate
-        pageCount={totalCount}
-        pageRangeDisplayed={2}
-        marginPagesDisplayed={2}
-        previousLabel={"prev"}
-        nextLabel={"next"}
-        breakLabel={"..."}
-        breakClassName={"break-me"}
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-        onPageChange={(page) => {
-          navigate(`/?page=${page.selected + 1}`);
-        }}
-      /> */}
-
       <ul>
         {pageNumbers.showNumbers.map((n) => (
           <li key={n}>
